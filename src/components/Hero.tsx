@@ -5,6 +5,7 @@ import { Search, Menu } from 'lucide-react';
 
 export const Hero: React.FC = () => {
   const [showLogin, setShowLogin] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -47,9 +48,41 @@ export const Hero: React.FC = () => {
             Chào Mừng Bạn Đến với Sự Kiện MoMo
           </h2>
           
-          <button className="flex-shrink-0 p-2 md:p-3 hover:bg-gray-100 rounded-lg transition-colors">
-            <Menu size={24} className="text-gray-700 md:w-7 md:h-7 lg:w-8 lg:h-8" />
-          </button>
+          <div className="relative">
+            <button 
+              onClick={() => setShowMenu(!showMenu)}
+              className="flex-shrink-0 p-2 md:p-3 hover:bg-gray-100 rounded-lg transition-colors"
+            >
+              <Menu size={24} className="text-gray-700 md:w-7 md:h-7 lg:w-8 lg:h-8" />
+            </button>
+
+            {showMenu && (
+              <>
+                {/* Backdrop to close menu */}
+                <div 
+                  className="fixed inset-0 z-40" 
+                  onClick={() => setShowMenu(false)}
+                />
+                
+                {/* Dropdown Menu */}
+                <div className="absolute right-0 top-full mt-2 w-56 bg-white rounded-lg shadow-xl border border-gray-200 py-2 z-50">
+                  <button
+                    onClick={() => {
+                      setShowLogin(true);
+                      setShowMenu(false);
+                    }}
+                    className="w-full px-4 py-3 text-left hover:bg-pink-50 transition-colors flex items-center gap-3"
+                  >
+                   
+                    <div>
+                      <div className="font-bold text-viettel-red text-sm">Đăng nhập/Đăng ký</div>
+                      <div className="text-xs text-gray-500">Tham gia ngay để nhận quà</div>
+                    </div>
+                  </button>
+                </div>
+              </>
+            )}
+          </div>
         </div>
       </div>
 
