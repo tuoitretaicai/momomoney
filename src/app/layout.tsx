@@ -13,31 +13,34 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ViettelMoney - Quay Hay, 100% Trúng Quà Ngay",
-  description: "Hoàn thành sự kiện ngay - nhận quà liền tay !",
-  keywords: ["ViettelMoney", "Quay thưởng", "Trúng quà", "Viettel"],
-  authors: [{ name: "ViettelMoney" }],
+  title: "MoMo - Quay ngay, Trúng quà hay",
+  description: "Hoàn thành sự kiện - nhận quà liền tay !",
+  keywords: ["MoMo", "Quay thưởng", "Trúng quà", "Ví điện tử"],
+  authors: [{ name: "MoMo" }],
   viewport: "width=device-width, initial-scale=1",
   robots: "index, follow",
+  icons: {
+    icon: "https://homepage.momocdn.net/fileuploads/svg/momo-file-240411162904.svg",
+  },
   openGraph: {
-    title: "ViettelMoney - Quay Hay, 100% Trúng Quà Ngay",
+    title: "MoMo - Quay Hay, 100% Trúng Quà Ngay",
     description: "Hoàn thành sự kiện ngay - nhận quà liền tay !",
     type: "website",
     locale: "vi_VN",
-    siteName: "ViettelMoney",    images: [
+    siteName: "MoMo",    images: [
       {
         url: "/images/herosectionnw.jpg",
         width: 1200,
         height: 630,
-        alt: "ViettelMoney - Quay Hay 100% Trúng Quà",
+        alt: "MoMo - Quay Hay 100% Trúng Quà",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "ViettelMoney - Quay Hay, 100% Trúng Quà Ngay",
+    title: "MoMo - Quay Hay, 100% Trúng Quà Ngay",
     description: "Một chạm chơi ngay - Trúng quà như ý",
-    images: ["/images/herosectionnw.jpg"],  },
+    images: ["/images/vequayweb.png"],  },
 };
 
 export default function RootLayout({

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { ChevronLeft, Trophy, Sparkles, Volume2, VolumeX, History, Gift } from 'lucide-react';
+import { ChevronLeft, History, Gift, Star, Coins } from 'lucide-react'; // Import thêm icon Star, Coins
 import { useRouter } from 'next/navigation';
 import confetti from 'canvas-confetti';
 import LuckyWheel from '@/components/LuckyWheel';
@@ -23,6 +23,14 @@ const runConfetti = () => {
     confetti({ ...defaults, particleCount, colors: [VIETTEL_RED, VIETTEL_YELLOW, '#FFFFFF'], origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 }, });
   }, 250);
 };
+
+// Component Đám Mây SVG
+const CloudShape = ({ className, style }: { className?: string, style?: React.CSSProperties }) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className={className} style={style}>
+    <path d="M17.5,19c-0.83,0-1.5-0.67-1.5-1.5c0-0.83,0.67-1.5,1.5-1.5c0.83,0,1.5,0.67,1.5,1.5C19,18.33,18.33,19,17.5,19z M19.5,12c-0.83,0-1.5-0.67-1.5-1.5c0-0.83,0.67-1.5,1.5-1.5c0.83,0,1.5,0.67,1.5,1.5C21,11.33,20.33,12,19.5,12z M6,14c-1.1,0-2-0.9-2-2c0-1.1,0.9-2,2-2s2,0.9,2,2C8,13.1,7.1,14,6,14z M13.5,16c-1.1,0-2-0.9-2-2c0-1.1,0.9-2,2-2s2,0.9,2,2C15.5,15.1,14.6,16,13.5,16z M5,18c-0.55,0-1-0.45-1-1c0-0.55,0.45-1,1-1s1,0.45,1,1C6,17.55,5.55,18,5,18z" />
+    <path d="M19.36,10.04C18.67,6.59,15.64,4,12,4C9.11,4,6.6,5.64,5.35,8.04C2.34,8.36,0,10.91,0,14c0,3.31,2.69,6,6,6h13c2.76,0,5-2.24,5-5C24,12.36,21.95,10.22,19.36,10.04z" />
+  </svg>
+);
 
 export default function QuayThuongPage() {
   const router = useRouter();
@@ -103,16 +111,51 @@ export default function QuayThuongPage() {
   return (
     <div className="min-h-screen relative overflow-hidden flex flex-col font-sans bg-[#FFF0F5]">
       
-      {/* 1. BACKGROUND DECORATION */}
-      <div className="absolute inset-0 z-0">
+      {/* 1. BACKGROUND DECORATION (ĐÃ CẬP NHẬT: MÂY + TIỀN VÀNG) */}
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
          {/* Gradient nền chủ đạo */}
-         <div className="absolute inset-0 bg-gradient-to-b from-pink-100 via-pink-50 to-white"></div>
+         <div className="absolute inset-0 bg-gradient-to-b from-pink-200 via-pink-50 to-white"></div>
+         
          {/* Họa tiết pháo giấy mờ */}
-         <div className="absolute inset-0 opacity-30" 
-              style={{ backgroundImage: 'radial-gradient(#d4008a 1px, transparent 1px)', backgroundSize: '30px 30px' }}>
+         <div className="absolute inset-0 opacity-20" 
+              style={{ backgroundImage: 'radial-gradient(#d4008a 1px, transparent 1px)', backgroundSize: '40px 40px' }}>
          </div>
+
+         {/* --- CÁC ĐÁM MÂY TRÔI (NEW) --- */}
+         <div className="absolute top-[10%] -left-[10%] w-32 h-32 text-white opacity-60 animate-float-slow">
+            <CloudShape className="w-full h-full" />
+         </div>
+         <div className="absolute top-[15%] right-[-5%] w-40 h-40 text-pink-100 opacity-80 animate-float-slower">
+            <CloudShape className="w-full h-full" />
+         </div>
+         <div className="absolute top-[40%] left-[5%] w-20 h-20 text-white opacity-40 animate-float">
+            <CloudShape className="w-full h-full" />
+         </div>
+          {/* Mây đáy màn hình */}
+         <div className="absolute bottom-[5%] -right-[10%] w-48 h-48 text-pink-200/50 opacity-50 animate-float-slow">
+            <CloudShape className="w-full h-full" />
+         </div>
+
+         {/* --- CÁC ICON BAY LƠ LỬNG (NEW) --- */}
+         <div className="absolute top-[20%] left-[15%] text-yellow-400 opacity-60 animate-bounce-slow">
+            <Star size={24} fill="currentColor" />
+         </div>
+         <div className="absolute top-[30%] right-[20%] text-yellow-500 opacity-50 animate-bounce-slower">
+            <Coins size={32} />
+         </div>
+         <div className="absolute bottom-[20%] left-[10%] text-yellow-300 opacity-40 animate-spin-slow-reverse">
+             <Star size={16} fill="currentColor" />
+         </div>
+
          {/* Ánh sáng sân khấu phía trên */}
-         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-[400px] bg-gradient-to-b from-pink-400/20 to-transparent blur-3xl rounded-full"></div>
+         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-[500px] bg-gradient-to-b from-pink-400/30 to-transparent blur-3xl rounded-full"></div>
+         
+         {/* Sóng ở đáy (Bottom Wave) */}
+         <div className="absolute bottom-0 left-0 w-full">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" className="w-full h-auto text-pink-100/50 fill-current">
+                <path fillOpacity="1" d="M0,224L48,213.3C96,203,192,181,288,181.3C384,181,480,203,576,224C672,245,768,267,864,261.3C960,256,1056,224,1152,197.3C1248,171,1344,149,1392,138.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+            </svg>
+         </div>
       </div>
 
       <div className="relative z-10 flex flex-col min-h-screen container mx-auto px-4 py-4 max-w-md md:max-w-2xl">
@@ -132,7 +175,7 @@ export default function QuayThuongPage() {
                   <History className="text-viettel-red" size={18} />
                   <span className="font-bold text-xs text-viettel-red uppercase">Lịch sử</span>
                 </button>
-              )}
+             )}
           </div>
         </header>
 
@@ -140,19 +183,19 @@ export default function QuayThuongPage() {
         <main className="flex-1 flex flex-col items-center justify-start pt-4 gap-6">
           
           {/* Title Banner */}
-          <div className="text-center relative animate-fade-in-down">
-             <div className="inline-block px-6 py-1.5 bg-gradient-to-r from-viettel-red to-pink-600 rounded-full text-white text-[11px] font-black tracking-[0.2em] uppercase mb-3 shadow-lg shadow-pink-300/50">
+          <div className="text-center relative animate-fade-in-down z-20">
+             <div className="inline-block px-6 py-1.5 bg-gradient-to-r from-viettel-red to-pink-600 rounded-full text-white text-[11px] font-black tracking-[0.2em] uppercase mb-3 shadow-lg shadow-pink-300/50 border border-white/20">
                 Sự kiện đặc biệt
              </div>
-             <h1 className="text-4xl md:text-5xl font-[900] uppercase leading-none text-transparent bg-clip-text bg-gradient-to-br from-viettel-red via-pink-600 to-purple-600 drop-shadow-sm">
+             <h1 className="text-4xl md:text-5xl font-[900] uppercase leading-none text-transparent bg-clip-text bg-gradient-to-br from-viettel-red via-pink-600 to-purple-600 drop-shadow-sm flex flex-col gap-0.5">
                 Vòng Quay
                 <br />
-                <span className="text-5xl md:text-6xl text-viettel-red drop-shadow-md">Tỷ Phú</span>
+                <span className="text-5xl md:text-6xl text-viettel-red drop-shadow-md filter drop-shadow-[0_2px_2px_rgba(255,255,255,0.8)]">Triệu Phú</span>
              </h1>
           </div>
 
           {/* Wheel Container - Tạo bệ đỡ 3D */}
-          <div className="relative mt-4 mb-8 transform transition-transform hover:scale-[1.02] duration-500">
+          <div className="relative mt-4 mb-8 transform transition-transform hover:scale-[1.02] duration-500 z-20">
              {/* Hiệu ứng hào quang sau lưng */}
              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px] bg-pink-400/30 rounded-full blur-[60px] animate-pulse-slow"></div>
              
@@ -163,7 +206,7 @@ export default function QuayThuongPage() {
           </div>
 
           {/* Action Button - 3D Style */}
-          <div className="w-full px-8 pb-8 flex flex-col gap-4 items-center">
+          <div className="w-full px-8 pb-8 flex flex-col gap-4 items-center z-20">
             <button
               onClick={handleSpin}
               disabled={gameState === GameState.SPINNING || hasSpun}
@@ -175,22 +218,22 @@ export default function QuayThuongPage() {
               `}
             >
               <div className="text-center leading-none z-10">
-                 {gameState === GameState.SPINNING ? (
+                  {gameState === GameState.SPINNING ? (
                     <>
                        <span className="block text-white text-[10px] md:text-xs">Đang</span>
                        <span className="block text-white text-base md:text-xl">Quay</span>
                     </>
-                 ) : hasSpun ? (
+                  ) : hasSpun ? (
                     <>
                        <span className="block text-white text-xs md:text-sm">Đã</span>
                        <span className="block text-white text-xs md:text-2xl">Quay</span>
                     </>
-                 ) : (
+                  ) : (
                     <>
                        <span className="block text-white text-[10px] md:text-xs drop-shadow-md">Quay</span>
                        <span className="block text-white text-lg md:text-2xl drop-shadow-md">Ngay</span>
                     </>
-                 )}
+                  )}
               </div>
               
               {/* Dashed border animation */}
@@ -199,7 +242,9 @@ export default function QuayThuongPage() {
               )}
             </button>
             
-            <p className="text-xs font-semibold text-gray-400">Trúng thưởng - Quà về túi ngay</p>
+            <p className="text-xs font-semibold text-gray-500 bg-white/50 backdrop-blur-sm px-4 py-1 rounded-full border border-white/50">
+                Trúng thưởng - Quà về túi ngay
+            </p>
           </div>
         </main>
       </div>
@@ -232,7 +277,7 @@ export default function QuayThuongPage() {
                {/* Decorative Header */}
                <div className="h-24 bg-gradient-to-br from-viettel-red to-pink-600 relative overflow-hidden flex items-center justify-center">
                   <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')]"></div>
-                  <Trophy size={48} className="text-white drop-shadow-lg animate-bounce" />
+                  <img src="/images/quamo.png" alt="" className="w-20 h-20 object-contain" />
                </div>
                
                <div className="px-6 py-8 text-center">
@@ -266,17 +311,13 @@ export default function QuayThuongPage() {
       {showPrizeHistory && savedPrize && (
          <ModalOverlay>
              <div className="w-full max-w-sm bg-white rounded-[32px] p-6 shadow-2xl animate-zoom-in text-center relative">
-                 <button onClick={() => setShowPrizeHistory(false)} className="absolute top-4 right-4 text-gray-300 hover:text-gray-600">
-                    <VolumeX size={24} className="rotate-45" /> {/* Close Icon trick */}
-                 </button>
-                 
                  <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                     <Gift className="text-green-600" size={32} />
                  </div>
                  <h3 className="text-xl font-bold text-gray-900 mb-6">Phần quà của bạn</h3>
                  
                  <div className="bg-gray-50 p-4 rounded-xl border border-gray-100 mb-6">
-                    <p className="text-sm text-gray-500 mb-1">Đã trúng vào lúc nãy</p>
+                    <p className="text-sm text-gray-500 mb-1">Đã nhận được</p>
                     <p className="text-2xl font-black text-viettel-red">{savedPrize.name}</p>
                  </div>
 
@@ -297,9 +338,9 @@ export default function QuayThuongPage() {
                <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                 <img src="/images/qua.png" alt="" />
                </div>
-               <h3 className="text-xl font-black text-gray-800 mb-3">Chưa hoàn tất!</h3>
+               <h3 className="text-xl font-black text-gray-800 mb-3">Bạn chưa hoàn thành sự kiện!</h3>
                <p className="text-gray-600 mb-8 leading-relaxed">
-                  Bạn cần hoàn thành sự kiện để nhận ưu đãi từ <span className="font-bold text-viettel-red">MoMo</span> nhé.
+                  Vui lòng hoàn thành sự kiện để nhận ưu đãi từ <span className="font-bold text-viettel-red">MoMo</span> nhé.
                </p>
                <button 
                   onClick={() => setShowEventModal(false)}
@@ -313,9 +354,38 @@ export default function QuayThuongPage() {
 
       <style jsx global>{`
         @keyframes shine { 100% { left: 125%; } }
+        @keyframes float { 
+            0%, 100% { transform: translateY(0); } 
+            50% { transform: translateY(-10px); } 
+        }
+        @keyframes float-slow { 
+            0%, 100% { transform: translate(0, 0); } 
+            50% { transform: translate(10px, -15px); } 
+        }
+        @keyframes float-slower { 
+            0%, 100% { transform: translate(0, 0); } 
+            50% { transform: translate(-10px, -20px); } 
+        }
+        @keyframes bounce-slow {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        @keyframes bounce-slower {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-30px); }
+        }
+        @keyframes spin-slow-reverse { from { transform: rotate(360deg); } to { transform: rotate(0deg); } }
+
         .animate-shine { animation: shine 2s infinite; }
         .animate-pulse-slow { animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
         .animate-zoom-in { animation: zoomIn 0.3s ease-out; }
+        .animate-float { animation: float 4s ease-in-out infinite; }
+        .animate-float-slow { animation: float-slow 7s ease-in-out infinite; }
+        .animate-float-slower { animation: float-slower 10s ease-in-out infinite; }
+        .animate-bounce-slow { animation: bounce-slow 4s ease-in-out infinite; }
+        .animate-bounce-slower { animation: bounce-slower 6s ease-in-out infinite; }
+        .animate-spin-slow-reverse { animation: spin-slow-reverse 12s linear infinite; }
+
         @keyframes zoomIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
         .animate-slide-in-right { animation: slideInRight 0.4s ease-out; }
         @keyframes slideInRight { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }

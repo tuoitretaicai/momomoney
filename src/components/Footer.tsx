@@ -189,18 +189,18 @@ export const Footer: React.FC = () => {
 
           <div className="space-y-4">
             <p className="text-gray-800 text-base leading-relaxed">
-              <span className="font-bold">Đối tượng áp dụng:</span> Toàn bộ thuê bao Viettel Money.
+              <span className="font-bold">Đối tượng áp dụng:</span> Toàn bộ người dùng MoMo.
             </p>
 
             <div className="space-y-3 pt-2">
               <p className="text-gray-800 text-base leading-relaxed">
-                <span className="font-bold">1. Thể lệ chương trình:</span> Vui lòng xem thêm tại màn hình sự kiện Viettel Money.
+                <span className="font-bold">1. Thể lệ chương trình:</span> Vui lòng xem thêm tại màn hình sự kiện MoMo.
               </p>    
               <p className="text-gray-800 text-base leading-relaxed"> 
                 <span className="font-bold">2. Thời gian:</span> Chương trình có thể kết thúc sớm khi hết ngân sách ưu đãi.
               </p>
               <p className="text-gray-800 text-base leading-relaxed">
-                <span className="font-bold">3. Lưu ý:</span> Mỗi khách hàng chỉ nhận được một lượt quay duy nhất khi tham gia sự kiện cùng Viettel Money. 
+                <span className="font-bold">3. Lưu ý:</span> Mỗi khách hàng chỉ nhận được một lượt quay duy nhất khi tham gia sự kiện cùng MoMo. 
               </p>
             </div>
 

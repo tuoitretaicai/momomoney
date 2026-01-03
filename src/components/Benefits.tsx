@@ -58,19 +58,19 @@ export const Benefits: React.FC = () => {
         {/* Info Cards - Optional */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mt-8">
           <div className="bg-white rounded-2xl p-6 shadow-md hover:shadow-xl transition-all duration-300 text-center group cursor-pointer">
-            <div className="text-4xl mb-3 group-hover:scale-110 transition-transform">🎯</div>
-            <h3 className="text-viettel-red font-bold text-lg mb-2">100% Trúng Quà</h3>
-            <p className="text-gray-600 text-sm">Mọi người chơi đều nhận được phần quà giá trị</p>
+            <div className="text-4xl mb-3 group-hover:scale-110 transition-transform"><img src="https://homepage.momocdn.net/img/momo-amazone-s3-api-241028104909-638657093492807751.png" alt="" className="w-16 h-16 mx-auto object-contain" /></div>
+            <h3 className="text-viettel-red font-bold text-lg mb-2">Bảo mật tuyệt đối</h3>
+            <p className="text-gray-600 text-sm">An toàn bảo mật tối đa với A.I</p>
           </div>
           
           <div className="bg-white rounded-2xl p-6 shadow-md hover:shadow-xl transition-all duration-300 text-center group cursor-pointer">
-            <div className="text-4xl mb-3 group-hover:scale-110 transition-transform">💰</div>
+            <div className="text-4xl mb-3 group-hover:scale-110 transition-transform"><img src="https://homepage.momocdn.net/img/momo-amazone-s3-api-241028104738-638657092586817069.png" alt="" className="w-16 h-16 mx-auto object-contain" /></div>
             <h3 className="text-viettel-red font-bold text-lg mb-2">Giải Thưởng Lớn</h3>
             <p className="text-gray-600 text-sm">Cơ hội trúng giải triệu đồng mỗi ngày</p>
           </div>
           
           <div className="bg-white rounded-2xl p-6 shadow-md hover:shadow-xl transition-all duration-300 text-center group cursor-pointer">
-            <div className="text-4xl mb-3 group-hover:scale-110 transition-transform">⚡</div>
+            <div className="text-4xl mb-3 group-hover:scale-110 transition-transform"><img src="https://homepage.momocdn.net/img/momo-amazone-s3-api-241028104806-638657092865001677.png" alt="" className="w-16 h-16 mx-auto object-contain" /></div>
             <h3 className="text-viettel-red font-bold text-lg mb-2">Nhanh Chóng</h3>
             <p className="text-gray-600 text-sm">Chỉ 1 phút để tham gia và nhận quà</p>
           </div>
