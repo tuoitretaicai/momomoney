@@ -54,7 +54,6 @@ export const Hero: React.FC = () => {
 
       {/* Hero Slider */}
       <div className="relative w-full bg-white pb-6">
-        {/* Slider Container */}
         <div className="relative w-full overflow-hidden">
           <div
             className="flex transition-transform duration-500 ease-out"
