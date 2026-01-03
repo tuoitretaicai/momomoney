@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     locale: "vi_VN",
     siteName: "MoMo",    images: [
       {
-        url: "/images/herosectionnw.jpg",
+        url: "/images/vequayweb.png",
         width: 1200,
         height: 630,
         alt: "MoMo - Quay Hay 100% Trúng Quà",
