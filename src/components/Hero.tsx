@@ -52,7 +52,6 @@ export const Hero: React.FC = () => {
         </div>
       </div>
 
-      {/* Hero Slider */}
       <div className="relative w-full bg-white pb-6">
         <div className="relative w-full overflow-hidden">
           <div
