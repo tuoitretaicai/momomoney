@@ -10,12 +10,24 @@ export const Benefits: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4">
         {/* Banner Container */}
         <div className="relative w-full rounded-3xl overflow-hidden shadow-2xl group">
-          {/* Banner Image */}
-          <div className="relative w-full" style={{ aspectRatio: '770/370' }}>
+          {/* Banner Image - Mobile */}
+          <div className="relative w-full flex justify-center md:hidden">
+            <img
+              src={IMAGES.BENEFITS[1]}
+              alt="Vòng Quay Triệu Phú - 100% Trúng Quà"
+              className="w-full h-auto object-contain transition-transform duration-700 group-hover:scale-105"
+            />
+            
+            {/* Gradient Overlay for better CTA visibility */}
+            <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-black/20"></div>
+          </div>
+
+          {/* Banner Image - Desktop */}
+          <div className="relative w-full hidden md:flex justify-center">
             <img
               src={IMAGES.BENEFITS[0]}
               alt="Vòng Quay Triệu Phú - 100% Trúng Quà"
-              className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+              className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
             />
             
             {/* Gradient Overlay for better CTA visibility */}
@@ -26,7 +38,7 @@ export const Benefits: React.FC = () => {
           <div className="hidden md:flex absolute inset-0 items-center justify-center">
             <button
               onClick={() => setShowLogin(true)}
-              className="bg-viettel-red text-white px-16 py-5 rounded-full font-black text-2xl shadow-2xl hover:bg-white hover:text-viettel-red hover:scale-110 border-4 border-white transition-all duration-300 transform hover:rotate-2 animate-pulse-slow"
+              className="bg-gradient-to-r from-pink-500 to-pink-600 text-white px-6 py-2.5 rounded-full font-bold text-sm shadow-2xl hover:from-pink-600 hover:to-pink-700 hover:scale-110 border-2 border-white transition-all duration-300 transform hover:rotate-2 animate-pulse-slow max-w-xs"
             >
               NHẬN QUÀ NGAY
             </button>
@@ -37,7 +49,7 @@ export const Benefits: React.FC = () => {
         <div className="md:hidden mt-6 flex justify-center">
           <button
             onClick={() => setShowLogin(true)}
-            className="bg-viettel-red text-white px-12 py-4 rounded-full font-black text-xl shadow-xl hover:opacity-90 hover:scale-105 transition-all duration-300 w-full max-w-md border-2 border-viettel-red animate-pulse-slow"
+            className="bg-gradient-to-r from-pink-500 to-pink-600 text-white px-6 py-2.5 rounded-full font-bold text-sm shadow-xl hover:from-pink-600 hover:to-pink-700 hover:scale-105 transition-all duration-300 border-2 border-pink-400 animate-pulse-slow"
           >
             NHẬN QUÀ NGAY
           </button>

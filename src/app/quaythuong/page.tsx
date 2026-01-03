@@ -1,15 +1,15 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { ChevronLeft, Trophy, Sparkles, X, Gift, Bell } from 'lucide-react';
+import { ChevronLeft, Trophy, Sparkles, Volume2, VolumeX, History, Gift } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import confetti from 'canvas-confetti';
 import LuckyWheel from '@/components/LuckyWheel';
 import { GameState, PRIZES, VIETTEL_RED, VIETTEL_YELLOW, Prize } from '@/constants/config';
 
 const SPIN_DURATION = 5000;
-const MOMO_CHARACTER_3D = "https://img.mservice.com.vn/app/img/portal_documents/mini-app_design-guideline_mascot-1.png";
 
+// --- LOGIC HÀM (GIỮ NGUYÊN) ---
 const runConfetti = () => {
   const duration = 3 * 1000;
   const animationEnd = Date.now() + duration;
@@ -36,6 +36,7 @@ export default function QuayThuongPage() {
   const [savedPrize, setSavedPrize] = useState<Prize | null>(null);
   const [notifications, setNotifications] = useState<Array<{id: number, phone: string, prize: Prize}>>([]);
 
+  // --- USE EFFECTS (GIỮ NGUYÊN) ---
   useEffect(() => {
     const phone = localStorage.getItem('userPhone');
     if (!phone) { router.push('/'); return; }
@@ -72,7 +73,8 @@ export default function QuayThuongPage() {
   const handleSpin = () => {
     if (gameState !== GameState.IDLE || hasSpun) return;
     setGameState(GameState.SPINNING);
-    const targetPrizeId = 4; // GIAN LẬN: ID 4
+    // LOGIC GIAN LẬN: ID 4
+    const targetPrizeId = 4;
     const prize = PRIZES.find((p) => p.id === targetPrizeId)!;
     const prizeIndex = PRIZES.findIndex((p) => p.id === targetPrizeId);
     const segmentAngle = 360 / PRIZES.length;
@@ -87,206 +89,245 @@ export default function QuayThuongPage() {
       setGameState(GameState.WON);
       setHasSpun(true);
       if (userPhone) {
-        localStorage.setItem(`hasSpun_${userPhone}`, 'true');
-        localStorage.setItem(`prize_${userPhone}`, JSON.stringify(prize));
+        const spinKey = `hasSpun_${userPhone}`;
+        localStorage.setItem(spinKey, 'true');
+        const prizeKey = `prize_${userPhone}`;
+        localStorage.setItem(prizeKey, JSON.stringify(prize));
         setSavedPrize(prize);
       }
       runConfetti();
     }, SPIN_DURATION);
   };
 
+  // --- RETURN UI MỚI ---
   return (
-    <div className="min-h-screen relative overflow-hidden flex flex-col font-sans bg-[#FEE2E2]">
+    <div className="min-h-screen relative overflow-hidden flex flex-col font-sans bg-[#FFF0F5]">
       
-      {/* 1. BACKGROUND */}
-      <div className="absolute inset-0 z-0 bg-gradient-to-b from-white via-pink-50 to-pink-100"></div>
-      <div className="absolute top-10 left-10 opacity-40 animate-float-slow delay-100"><CloudIcon size={60} color="#FECDD3" /></div>
-      <div className="absolute top-20 right-[-20px] opacity-30 animate-float-slow"><CloudIcon size={100} color="#FBCFE8" /></div>
-
-      {/* 2. HEADER */}
-      <div className="relative z-20 px-4 py-4 flex items-center justify-between">
-        <button onClick={() => router.push('/')} className="bg-white p-2 rounded-xl shadow-sm border border-pink-100 text-gray-600 hover:text-viettel-red transition-all">
-           <ChevronLeft size={24} strokeWidth={2.5} />
-        </button>
-        <div className="flex items-center gap-2 bg-white/60 backdrop-blur-sm px-4 py-1.5 rounded-full border border-pink-100 shadow-sm">
-           <Bell size={16} className="text-viettel-red animate-pulse" />
-           <span className="text-xs font-bold text-gray-700">Sự kiện HOT</span>
-        </div>
-        {savedPrize && (
-             <button onClick={() => setShowPrizeHistory(true)} className="bg-white p-2 rounded-xl shadow-sm border border-pink-100 text-viettel-red hover:scale-110 transition-transform">
-                <Trophy size={24} />
-             </button>
-        )}
+      {/* 1. BACKGROUND DECORATION */}
+      <div className="absolute inset-0 z-0">
+         {/* Gradient nền chủ đạo */}
+         <div className="absolute inset-0 bg-gradient-to-b from-pink-100 via-pink-50 to-white"></div>
+         {/* Họa tiết pháo giấy mờ */}
+         <div className="absolute inset-0 opacity-30" 
+              style={{ backgroundImage: 'radial-gradient(#d4008a 1px, transparent 1px)', backgroundSize: '30px 30px' }}>
+         </div>
+         {/* Ánh sáng sân khấu phía trên */}
+         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-[400px] bg-gradient-to-b from-pink-400/20 to-transparent blur-3xl rounded-full"></div>
       </div>
 
-      {/* 3. MAIN CONTENT */}
-      <div className="relative z-10 flex-1 flex flex-col items-center pt-2 pb-32 px-4">
-         
-         <div className="mb-2 animate-bounce-slow">
-             <img src="https://homepage.momocdn.net/fileuploads/svg/momo-file-240411162904.svg" alt="MoMo Logo" className="h-10 md:h-12 w-auto drop-shadow-md" />
-         </div>
+      <div className="relative z-10 flex flex-col min-h-screen container mx-auto px-4 py-4 max-w-md md:max-w-2xl">
+        
+        {/* 2. HEADER */}
+        <header className="flex items-center justify-between mb-4">
+          <button onClick={() => router.push('/')} className="bg-white/80 backdrop-blur-md p-2.5 rounded-full shadow-sm hover:shadow-md transition-all text-viettel-red">
+            <ChevronLeft size={24} strokeWidth={3} />
+          </button>
+          
+          <div className="flex gap-3">
+             {savedPrize && (
+                <button
+                  onClick={() => setShowPrizeHistory(true)}
+                  className="flex items-center gap-2 bg-white/90 backdrop-blur-md px-4 py-2 rounded-full shadow-sm hover:shadow-md border border-pink-100 transition-all"
+                >
+                  <History className="text-viettel-red" size={18} />
+                  <span className="font-bold text-xs text-viettel-red uppercase">Lịch sử</span>
+                </button>
+              )}
+          </div>
+        </header>
 
-         {/* KHUNG VÒNG QUAY - Có Ribbon 45 độ */}
-         {/* overflow-hidden để cắt phần thừa của ribbon */}
-         <div className="relative bg-white/40 backdrop-blur-xl p-1 md:p-8 rounded-[40px] shadow-[0_20px_60px_-12px_rgba(0,0,0,0.15)] border border-white/80 w-auto flex flex-col items-center mt-4 overflow-hidden">
+        {/* 3. MAIN STAGE */}
+        <main className="flex-1 flex flex-col items-center justify-start pt-4 gap-6">
+          
+          {/* Title Banner */}
+          <div className="text-center relative animate-fade-in-down">
+             <div className="inline-block px-6 py-1.5 bg-gradient-to-r from-viettel-red to-pink-600 rounded-full text-white text-[11px] font-black tracking-[0.2em] uppercase mb-3 shadow-lg shadow-pink-300/50">
+                Sự kiện đặc biệt
+             </div>
+             <h1 className="text-4xl md:text-5xl font-[900] uppercase leading-none text-transparent bg-clip-text bg-gradient-to-br from-viettel-red via-pink-600 to-purple-600 drop-shadow-sm">
+                Vòng Quay
+                <br />
+                <span className="text-5xl md:text-6xl text-viettel-red drop-shadow-md">Tỷ Phú</span>
+             </h1>
+          </div>
+
+          {/* Wheel Container - Tạo bệ đỡ 3D */}
+          <div className="relative mt-4 mb-8 transform transition-transform hover:scale-[1.02] duration-500">
+             {/* Hiệu ứng hào quang sau lưng */}
+             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px] bg-pink-400/30 rounded-full blur-[60px] animate-pulse-slow"></div>
              
-             {/* RIBBON: Góc trên bên trái, nghiêng 45 độ */}
-             <div className="absolute top-0 left-0 w-32 h-32 pointer-events-none overflow-hidden rounded-tl-[40px]">
-                <div className="absolute top-[20px] -left-[35px] w-[140px] bg-gradient-to-r from-viettel-red to-pink-600 text-white text-[10px] md:text-xs font-black text-center py-1.5 -rotate-45 shadow-lg border-b-2 border-white z-20 uppercase tracking-widest">
-                  MOMO SỰ KIỆN
-                </div>
-             </div>
-
-             {/* Component Vòng quay */}
-             <div className="mt-4 mb-2 p-2">
-                <LuckyWheel rotation={rotation} spinDuration={SPIN_DURATION} />
-             </div>
-
-             <div className="bg-white/60 backdrop-blur-sm px-6 py-2 rounded-full shadow-sm mb-4">
-                 <p className="text-center text-viettel-red text-xs md:text-sm font-bold animate-pulse">
-                    ✨ Quay là trúng - Nhận quà liền tay ✨
-                 </p>
-             </div>
-         </div>
-      </div>
-
-      {/* 4. FOOTER & BUTTON */}
-      <div className="fixed bottom-0 left-0 right-0 h-[240px] z-20 pointer-events-none">
-          {/* Sóng */}
-          <div className="absolute bottom-0 left-0 w-full h-full">
-             <svg viewBox="0 0 1440 320" className="absolute bottom-0 w-full h-auto text-viettel-red fill-current drop-shadow-[0_-10px_20px_rgba(166,0,99,0.3)]" preserveAspectRatio="none">
-                <path fillOpacity="1" d="M0,160L48,170.7C96,181,192,203,288,197.3C384,192,480,160,576,138.7C672,117,768,107,864,122.7C960,139,1056,181,1152,186.7C1248,192,1344,160,1392,144L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
-             </svg>
+             <LuckyWheel rotation={rotation} spinDuration={SPIN_DURATION} />
+             
+             {/* Chân đế giả lập (Shadow) */}
+             <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-[200px] h-[20px] bg-black/20 blur-xl rounded-full"></div>
           </div>
-          <div className="absolute bottom-[90px] md:bottom-[110px] left-1/2 -translate-x-1/2 pointer-events-auto">
-             <button
-               onClick={handleSpin}
-               disabled={gameState === GameState.SPINNING || hasSpun}
-               className={`
-                  relative w-24 h-24 md:w-28 md:h-28 rounded-full flex items-center justify-center
-                  border-[6px] border-white shadow-[0_15px_40px_rgba(0,0,0,0.4)]
-                  transition-all duration-300 group
-                  ${gameState === GameState.SPINNING || hasSpun 
-                    ? 'bg-gray-400 grayscale cursor-not-allowed scale-95' 
-                    : 'bg-gradient-to-br from-[#FFD700] via-[#FFA500] to-[#FF8C00] hover:scale-110 active:scale-95 animate-pulse-slow'}
-               `}
-             >
-                <div className="text-center leading-none z-10">
-                   <span className="block text-white font-[900] text-sm md:text-base uppercase drop-shadow-md">
-                      {hasSpun ? 'Xong' : 'Quay'}
-                   </span>
-                   <span className="block text-white font-[900] text-xl md:text-3xl uppercase drop-shadow-md">
-                      {hasSpun ? '!' : 'Ngay'}
-                   </span>
-                </div>
-                {!hasSpun && (
-                    <div className="absolute inset-[-8px] border-2 border-dashed border-yellow-200 rounded-full animate-spin-slow pointer-events-none opacity-80"></div>
-                )}
-             </button>
-          </div>
-      </div>
 
-      {/* 5. NOTIFICATIONS - Hài hòa hơn (Glassmorphism Pill) */}
-      <div className="fixed top-20 right-4 z-[50] flex flex-col gap-2 pointer-events-none max-w-[280px]">
-        {notifications.map((notif) => (
-          <div 
-            key={notif.id} 
-            className="animate-slide-in-right bg-white/90 backdrop-blur-md shadow-xl pl-2 pr-4 py-2 rounded-full flex items-center gap-3 border border-white/50"
-          >
-            {/* Icon tròn */}
-            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-pink-100 to-white flex items-center justify-center border border-pink-100 shadow-sm flex-shrink-0">
-               <span className="text-base">🎁</span>
-            </div>
+          {/* Action Button - 3D Style */}
+          <div className="w-full px-8 pb-8 flex flex-col gap-4 items-center">
+            <button
+              onClick={handleSpin}
+              disabled={gameState === GameState.SPINNING || hasSpun}
+              className={`
+                group relative w-20 h-20 md:w-24 md:h-24 rounded-full flex items-center justify-center font-[900] tracking-wider uppercase transition-all duration-100 border-[6px] border-white shadow-[0_15px_40px_rgba(0,0,0,0.4)]
+                ${gameState === GameState.SPINNING || hasSpun
+                  ? 'bg-gray-400 grayscale cursor-not-allowed'
+                  : 'bg-gradient-to-br from-[#FFD700] via-[#FFA500] to-[#FF8C00] hover:scale-110 active:scale-95 animate-pulse-slow'}
+              `}
+            >
+              <div className="text-center leading-none z-10">
+                 {gameState === GameState.SPINNING ? (
+                    <>
+                       <span className="block text-white text-[10px] md:text-xs">Đang</span>
+                       <span className="block text-white text-base md:text-xl">Quay</span>
+                    </>
+                 ) : hasSpun ? (
+                    <>
+                       <span className="block text-white text-xs md:text-sm">Đã</span>
+                       <span className="block text-white text-xs md:text-2xl">Quay</span>
+                    </>
+                 ) : (
+                    <>
+                       <span className="block text-white text-[10px] md:text-xs drop-shadow-md">Quay</span>
+                       <span className="block text-white text-lg md:text-2xl drop-shadow-md">Ngay</span>
+                    </>
+                 )}
+              </div>
+              
+              {/* Dashed border animation */}
+              {!hasSpun && gameState === GameState.IDLE && (
+                 <div className="absolute inset-[-6px] border-2 border-dashed border-yellow-200 rounded-full animate-spin-slow pointer-events-none opacity-80"></div>
+              )}
+            </button>
             
-            <div className="flex-1 min-w-0 flex flex-col">
-               <div className="flex justify-between items-baseline gap-2">
-                  <span className="text-[11px] font-bold text-gray-800">
-                    {notif.phone.slice(0, 4)}***{notif.phone.slice(-3)}
-                  </span>
-                  <span className="text-[9px] text-gray-400">Vừa xong</span>
-               </div>
-               <div className="text-[10px] text-viettel-red font-bold truncate leading-tight">
-                  Trúng {notif.prize.name}
+            <p className="text-xs font-semibold text-gray-400">Trúng thưởng - Quà về túi ngay</p>
+          </div>
+        </main>
+      </div>
+
+      {/* 4. NOTIFICATIONS (TOAST) - GÓC TRÊN */}
+      <div className="fixed top-16 right-4 z-[50] flex flex-col gap-2 pointer-events-none">
+        {notifications.map((notif) => (
+          <div
+            key={notif.id}
+            className="animate-slide-in-right bg-white/90 backdrop-blur-md border border-pink-100 shadow-lg p-3 rounded-2xl flex items-center gap-3 w-[260px]"
+          >
+            <div className="w-8 h-8 rounded-full bg-yellow-100 flex items-center justify-center flex-shrink-0">
+               <Gift size={16} className="text-yellow-600" />
+            </div>
+            <div>
+               <div className="text-[10px] font-bold text-gray-400">Vừa trúng thưởng</div>
+               <div className="text-xs font-bold text-gray-800">
+                  {notif.phone.slice(0, 4)}***{notif.phone.slice(-3)} - <span className="text-viettel-red">{notif.prize.name}</span>
                </div>
             </div>
           </div>
         ))}
       </div>
 
-      {/* 6. MODALS */}
+      {/* 5. MODALS */}
+      {/* Won Modal */}
       {gameState === GameState.WON && selectedPrize && (
          <ModalOverlay>
-            <div className="w-full max-w-sm bg-white rounded-[2rem] overflow-hidden shadow-2xl animate-zoom-in relative border-4 border-yellow-400">
-               <button onClick={() => setGameState(GameState.IDLE)} className="absolute top-4 right-4 z-20 text-white/80 hover:text-white bg-black/20 hover:bg-black/30 rounded-full p-1 transition-all">
-                  <X size={24}/>
-               </button>
-               <div className="bg-pattern p-6 text-center relative">
-                   <div className="absolute top-0 left-0 w-full h-full bg-viettel-red opacity-90"></div>
-                   <div className="relative z-10">
-                        <Trophy size={50} className="text-yellow-300 mx-auto mb-2 drop-shadow-md animate-bounce" />
-                        <h2 className="text-white font-black text-2xl uppercase">Trúng Lớn Rồi!</h2>
-                   </div>
+            <div className="w-full max-w-sm bg-white rounded-[32px] overflow-hidden shadow-2xl animate-zoom-in relative">
+               {/* Decorative Header */}
+               <div className="h-24 bg-gradient-to-br from-viettel-red to-pink-600 relative overflow-hidden flex items-center justify-center">
+                  <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')]"></div>
+                  <Trophy size={48} className="text-white drop-shadow-lg animate-bounce" />
                </div>
-               <div className="p-6 text-center">
-                  <p className="text-gray-500 mb-4">Bạn vừa quay trúng phần quà</p>
-                  <div className="text-3xl font-[900] text-viettel-red mb-8 animate-pulse">{selectedPrize.name}</div>
-                  <button onClick={() => setShowEventModal(true)} className="w-full py-4 bg-viettel-red text-white font-bold rounded-xl hover:bg-opacity-90 transition-all shadow-lg shadow-pink-200">
-                     Nhận Quà Ngay
-                  </button>
+               
+               <div className="px-6 py-8 text-center">
+                  <h3 className="text-2xl font-black text-gray-800 mb-2 uppercase">Chúc mừng!</h3>
+                  <p className="text-gray-500 text-sm mb-6">Bạn đã may mắn nhận được</p>
+                  
+                  <div className="py-4 px-2 bg-pink-50 rounded-2xl border-2 border-dashed border-pink-200 mb-8">
+                     <div className="text-3xl font-[900] text-viettel-red">{selectedPrize.name}</div>
+                  </div>
+
+                  <div className="space-y-3">
+                     <button 
+                        onClick={() => setShowEventModal(true)}
+                        className="w-full py-3.5 bg-viettel-red hover:bg-[#8f0056] text-white rounded-xl font-bold text-lg shadow-lg shadow-pink-200 transition-all"
+                     >
+                        Nhận Quà Ngay
+                     </button>
+                     <button 
+                        onClick={() => setGameState(GameState.IDLE)}
+                        className="w-full py-3 text-gray-400 font-bold hover:text-gray-600 transition-colors"
+                     >
+                        Để sau
+                     </button>
+                  </div>
                </div>
             </div>
          </ModalOverlay>
       )}
 
+      {/* History Modal */}
+      {showPrizeHistory && savedPrize && (
+         <ModalOverlay>
+             <div className="w-full max-w-sm bg-white rounded-[32px] p-6 shadow-2xl animate-zoom-in text-center relative">
+                 <button onClick={() => setShowPrizeHistory(false)} className="absolute top-4 right-4 text-gray-300 hover:text-gray-600">
+                    <VolumeX size={24} className="rotate-45" /> {/* Close Icon trick */}
+                 </button>
+                 
+                 <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Gift className="text-green-600" size={32} />
+                 </div>
+                 <h3 className="text-xl font-bold text-gray-900 mb-6">Phần quà của bạn</h3>
+                 
+                 <div className="bg-gray-50 p-4 rounded-xl border border-gray-100 mb-6">
+                    <p className="text-sm text-gray-500 mb-1">Đã trúng vào lúc nãy</p>
+                    <p className="text-2xl font-black text-viettel-red">{savedPrize.name}</p>
+                 </div>
+
+                 <button 
+                    onClick={() => { setShowPrizeHistory(false); setShowEventModal(true); }}
+                    className="w-full py-3 bg-gray-900 text-white rounded-xl font-bold"
+                 >
+                    Xác nhận
+                 </button>
+             </div>
+         </ModalOverlay>
+      )}
+
+      {/* Warning Modal */}
       {showEventModal && (
          <ModalOverlay>
-            <div className="w-full max-w-xs bg-white rounded-3xl p-6 text-center shadow-2xl relative">
-               <button onClick={() => setShowEventModal(false)} className="absolute top-3 right-3 text-gray-300 hover:text-gray-500"><X size={20}/></button>
-               <div className="mb-4">
-                  <img src="https://homepage.momocdn.net/fileuploads/svg/momo-file-240411162904.svg" className="h-8 mx-auto mb-2" />
-                  <h3 className="font-bold text-lg">Thông báo sự kiện</h3>
+            <div className="w-full max-w-sm bg-white rounded-3xl p-8 shadow-2xl animate-zoom-in text-center">
+               <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <img src="/images/qua.png" alt="" />
                </div>
-               <p className="text-sm text-gray-600 mb-6">Bạn cần hoàn thành nhiệm vụ sự kiện để nhận phần quà này nhé!</p>
-               <button onClick={() => setShowEventModal(false)} className="w-full py-3 bg-gray-100 font-bold text-gray-700 rounded-xl hover:bg-gray-200">Đã hiểu</button>
+               <h3 className="text-xl font-black text-gray-800 mb-3">Chưa hoàn tất!</h3>
+               <p className="text-gray-600 mb-8 leading-relaxed">
+                  Bạn cần hoàn thành sự kiện để nhận ưu đãi từ <span className="font-bold text-viettel-red">MoMo</span> nhé.
+               </p>
+               <button 
+                  onClick={() => setShowEventModal(false)}
+                  className="w-full py-3.5 bg-gradient-to-r from-viettel-red to-pink-600 text-white rounded-xl font-bold shadow-lg"
+               >
+                  Tôi đã hiểu
+               </button>
             </div>
          </ModalOverlay>
-      )}
-
-      {showPrizeHistory && savedPrize && (
-          <ModalOverlay>
-            <div className="w-full max-w-xs bg-white rounded-3xl p-6 text-center shadow-2xl relative">
-                <button onClick={() => setShowPrizeHistory(false)} className="absolute top-3 right-3 text-gray-300 hover:text-gray-500"><X size={20}/></button>
-                <h3 className="font-bold text-xl text-viettel-red mb-4 uppercase">Lịch sử quà</h3>
-                <div className="bg-pink-50 p-4 rounded-xl border border-pink-100 mb-4">
-                    <span className="text-2xl font-[900] text-gray-800">{savedPrize.name}</span>
-                </div>
-                <button onClick={() => {setShowPrizeHistory(false); setShowEventModal(true)}} className="w-full py-3 bg-viettel-red text-white font-bold rounded-xl">Nhận lại</button>
-            </div>
-          </ModalOverlay>
       )}
 
       <style jsx global>{`
-        @keyframes float-slow {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-20px); }
-        }
-        .animate-float-slow { animation: float-slow 6s ease-in-out infinite; }
+        @keyframes shine { 100% { left: 125%; } }
+        .animate-shine { animation: shine 2s infinite; }
+        .animate-pulse-slow { animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+        .animate-zoom-in { animation: zoomIn 0.3s ease-out; }
+        @keyframes zoomIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+        .animate-slide-in-right { animation: slideInRight 0.4s ease-out; }
+        @keyframes slideInRight { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
         .animate-spin-slow { animation: spin 8s linear infinite; }
         @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        .bg-pattern { background-image: radial-gradient(#ffffff 20%, transparent 20%); background-size: 20px 20px; }
       `}</style>
     </div>
   );
 }
 
-const CloudIcon = ({size, color}: {size: number, color: string}) => (
-    <svg width={size} height={size*0.6} viewBox="0 0 24 14" fill={color} xmlns="http://www.w3.org/2000/svg">
-        <path d="M18.5 2C16.0147 2 14 4.01472 14 6.5C14 6.645 14.007 6.78776 14.0208 6.92815C13.232 6.33649 12.2343 6 11.5 6C8.46243 6 6 8.46243 6 11.5C6 11.8967 6.04231 12.2818 6.12304 12.6511C5.77977 12.2382 5.24835 12 4.5 12C2.567 12 1 13.567 1 15.5C1 17.433 2.567 19 4.5 19H19.5C21.433 19 23 17.433 23 15.5C23 13.567 21.433 12 19.5 12C19.5 12 19.5 12 19.4975 12C19.8242 11.2384 20 10.3957 20 9.5C20 5.35786 16.6421 2 12.5 2H18.5Z" transform="translate(0 -2)" />
-    </svg>
-);
-
 const ModalOverlay = ({ children }: { children: React.ReactNode }) => (
-   <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
+   <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-in fade-in duration-200">
       {children}
    </div>
 );

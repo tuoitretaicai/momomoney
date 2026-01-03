@@ -3,13 +3,18 @@ export const IMAGES = {
   
   HERO: {
     HEROHEAD: "/images/headsection.jpg",
-    HERO1: "/images/hero1.webp",
+    HERO1: "/images/hero1.png",
     HERO2: "/images/hero2.jpg",
     HERO3: "/images/hero3.jpg",
+    HEROWEB1: "/images/heroweb1.png",
+    HEROWEB2: "/images/heroweb2.jpg",
+    HEROWEB3: "/images/heroweb4.jpg",
   },
 
   BENEFITS: [
-    "/images/vongquay.jpg",
+    "/images/vequayweb.png",
+    "/images/vequaymobile.png",
+    
   ],
 
   INSTRUCTION: [

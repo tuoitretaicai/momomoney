@@ -55,17 +55,26 @@ export const Promotions: React.FC = () => {
         {/* Tabs */}
         <div className="flex justify-center gap-2 md:gap-4 mb-12 md:mb-16">
           {tabs.map((tab, index) => (
-            <button
+            <a 
               key={index}
-              onClick={() => setActiveTab(index)}
-              className={`px-4 md:px-8 py-3 md:py-4 rounded-full font-bold text-xs md:text-base transition-all duration-300 ${
+              href="https://apps.apple.com/vn/app/momo-tr%E1%BB%A3-th%E1%BB%A7-t%C3%A0i-ch%C3%ADnh-v%E1%BB%9Bi-ai/id918751511" 
+              target='_blank'
+              rel="noopener noreferrer"
+              onClick={(e) => {
+                e.preventDefault();
+                setActiveTab(index);
+                if (index === 0) {
+                  window.open("https://apps.apple.com/vn/app/momo-tr%E1%BB%A3-th%E1%BB%A7-t%C3%A0i-ch%C3%ADnh-v%E1%BB%9Bi-ai/id918751511", '_blank');
+                }
+              }}
+              className={`inline-block px-4 md:px-8 py-3 md:py-4 rounded-full font-bold text-xs md:text-base transition-all duration-300 ${
                 index === 0
                   ? 'bg-viettel-red text-white shadow-lg'
                   : 'bg-pink-100 text-gray-600 hover:bg-pink-200'
               }`}
             >
               {tab}
-            </button>
+            </a>
           ))}
         </div>
 
@@ -131,7 +140,7 @@ export const Promotions: React.FC = () => {
 
         {/* CTA Button */}
         <div className="flex justify-center mt-12 md:mt-16">
-          <a href="https://apps.apple.com/us/app/viettel-money/id1344204781" target="_blank" rel="noopener noreferrer">
+          <a href="https://apps.apple.com/vn/app/momo-tr%E1%BB%A3-th%E1%BB%A7-t%C3%A0i-ch%C3%ADnh-v%E1%BB%9Bi-ai/id918751511" target="_blank" rel="noopener noreferrer">
             <button className="bg-viettel-red text-white px-10 md:px-14 py-3 md:py-4 rounded-full font-bold text-base md:text-lg shadow-xl hover:opacity-90 hover:scale-105 transition-all duration-300">
               Xem ngay
             </button>

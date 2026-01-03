@@ -42,11 +42,15 @@ export const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
           <X size={20} />
         </button>
 
+        <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6 md:mb-8 text-center">
+          Đăng Nhập
+        </h2>
+
         <div className="space-y-4 md:space-y-6">
           {/* Tên đăng nhập/Số điện thoại/Email */}
           <div>
             <label className="block text-gray-600 text-xs md:text-sm mb-2">
-              Tên đăng nhập/Số điện thoại/Email <span className="text-red-500">*</span>
+             Nhập số điện thoại <span className="text-red-500">*</span>
             </label>
             <div className="relative">
               <div className="absolute left-3 md:left-4 top-1/2 -translate-y-1/2 text-gray-400">
@@ -66,7 +70,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
                 }}
                 maxLength={10}
                 placeholder="Tên đăng nhập/Số điện thoại/Email"
-                className="w-full border-2 border-gray-200 rounded-xl pl-10 md:pl-12 pr-4 py-3 md:py-4 text-sm md:text-base focus:outline-none focus:border-viettel-red text-black placeholder-gray-300 transition-colors"
+                className="w-full border-2 border-gray-200 rounded-xl pl-10 md:pl-12 pr-4 py-3 md:py-4 text-base focus:outline-none focus:border-viettel-red text-black placeholder-gray-300 transition-colors"
               />
             </div>
             {phoneError && <p className="text-red-500 text-xs md:text-sm mt-1">{phoneError}</p>}
@@ -86,7 +90,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Nhập mật khẩu"
-                className="w-full border-2 border-gray-200 rounded-xl pl-10 md:pl-12 pr-11 md:pr-12 py-3 md:py-4 text-sm md:text-base focus:outline-none focus:border-viettel-red text-black placeholder-gray-300 transition-colors"
+                className="w-full border-2 border-gray-200 rounded-xl pl-10 md:pl-12 pr-11 md:pr-12 py-3 md:py-4 text-base focus:outline-none focus:border-viettel-red text-black placeholder-gray-300 transition-colors"
               />
               <button
                 type="button"

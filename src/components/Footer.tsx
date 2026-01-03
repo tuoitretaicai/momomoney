@@ -118,7 +118,7 @@ export const Footer: React.FC = () => {
 
     {/* Bottom Copyright */}
     <div className="max-w-7xl mx-auto px-4 pt-8 border-t border-gray-700">
-      <p className="text-sm text-gray-400 text-center">©Copyright M_Service 2026</p>
+      <p className="text-sm text-gray-400 text-center">©Copyright M_Service MoMo</p>
     </div>
 
     {/* Desktop: Floating Action Buttons */}
