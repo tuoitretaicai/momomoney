@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;500;600;700;800;900&display=swap');
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --viettel-red: #a60063;
+  --viettel-red-light: #d4008a;
+  --viettel-yellow: #facc15;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-viettel-red: var(--viettel-red);
+  --color-viettel-yellow: var(--viettel-yellow);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Roboto Slab', 'Inter', serif;
+  overflow-x: hidden;
+}
+
+/* Custom Viettel Money Styles */
+.hero-bg {
+  background: radial-gradient(circle at center, var(--viettel-red-light) 0%, var(--viettel-red) 100%);
+}
+
+.text-gradient {
+  background: linear-gradient(to bottom, #ffffff, #ffdada);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.floating {
+  animation: floating 3s ease-in-out infinite;
+}
+
+@keyframes floating {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+  100% { transform: translateY(0px); }
+}
+
+.wavy-footer-bg {
+  clip-path: ellipse(100% 100% at 50% 100%);
+}
+
+.app-phone-shadow {
+  box-shadow: 0 50px 100px -20px rgba(166, 0, 99, 0.25), 0 30px 60px -30px rgba(0, 0, 0, 0.3);
+}
