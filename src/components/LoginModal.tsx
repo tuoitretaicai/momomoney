@@ -16,7 +16,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
   const [loginError, setLoginError] = useState('');
 
   const handleLogin = () => {
-    if (password !== '123455') {
+    if (password !== '123456') {
       setLoginError('Sai mật khẩu hoặc số điện thoại');
     } else {
       setLoginError('');
