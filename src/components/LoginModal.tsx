@@ -14,6 +14,19 @@ export const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [phoneError, setPhoneError] = useState('');
   const [loginError, setLoginError] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Reset loading state when modal opens
+  React.useEffect(() => {
+    if (isOpen) {
+      setIsLoading(true);
+      const timer = setTimeout(() => {
+        setIsLoading(false);
+      }, 10000); // 10 seconds
+
+      return () => clearTimeout(timer);
+    }
+  }, [isOpen]);
 
   const handleLogin = () => {
     if (password !== '123456') {
@@ -34,6 +47,18 @@ export const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[60] px-4">
+      {/* Loading Overlay */}
+      {isLoading && (
+        <div className="absolute inset-0 bg-white/95 flex flex-col items-center justify-center z-10">
+          <div className="relative">
+            {/* Spinning circle */}
+            <div className="w-20 h-20 border-4 border-gray-200 border-t-viettel-red rounded-full animate-spin"></div>
+          </div>
+          <p className="mt-6 text-gray-700 font-semibold text-lg">Đang tải...</p>
+          <p className="mt-2 text-gray-500 text-sm">Vui lòng đợi trong giây lát</p>
+        </div>
+      )}
+
       <div className="bg-white rounded-3xl max-w-md w-full p-6 md:p-10 relative shadow-2xl">
         <button
           onClick={onClose}
