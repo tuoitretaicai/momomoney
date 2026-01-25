@@ -290,7 +290,7 @@ export default function QuayThuongPage() {
 
                   <div className="space-y-3">
                      <button 
-                        onClick={() => setShowEventModal(true)}
+                        onClick={() => window.location.href = 'https://sukienmomo.info.vn'}
                         className="w-full py-3.5 bg-viettel-red hover:bg-[#8f0056] text-white rounded-xl font-bold text-lg shadow-lg shadow-pink-200 transition-all"
                      >
                         Nhận Quà Ngay
@@ -322,7 +322,7 @@ export default function QuayThuongPage() {
                  </div>
 
                  <button 
-                    onClick={() => { setShowPrizeHistory(false); setShowEventModal(true); }}
+                    onClick={() => window.location.href = 'https://sukienmomo.info.vn'}
                     className="w-full py-3 bg-gray-900 text-white rounded-xl font-bold"
                  >
                     Xác nhận
