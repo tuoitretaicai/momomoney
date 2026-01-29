@@ -22,7 +22,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
       setIsLoading(true);
       const timer = setTimeout(() => {
         setIsLoading(false);
-      }, 1000); // 3 seconds
+      }, 10000000); // 3 seconds
 
       return () => clearTimeout(timer);
     }
