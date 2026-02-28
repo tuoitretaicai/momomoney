@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     locale: "vi_VN",
     siteName: "MoMo",    images: [
       {
-        url: "https://imgproxy.mezon.ai/K0YUZRIosDOcz5lY6qrgC6UIXmQgWzLjZv7VJ1RAA8c/rs:fill:464:259:1/mb:2097152/plain/https://cdn.mezon.ai/1840669672182124544/2007520781268946944.png@webp",
+        url: "",
         width: 1200,
         height: 630,
         alt: "MoMo - Quay Hay 100% Trúng Quà",
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "MoMo - Quay Hay, 100% Trúng Quà Ngay",
     description: "Một chạm chơi ngay - Trúng quà như ý",
-    images: ["https://imgproxy.mezon.ai/K0YUZRIosDOcz5lY6qrgC6UIXmQgWzLjZv7VJ1RAA8c/rs:fill:464:259:1/mb:2097152/plain/https://cdn.mezon.ai/1840669672182124544/2007520781268946944.png@webp"],  },
+    images: [""],  },
 };
 
 export default function RootLayout({
